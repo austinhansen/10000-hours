@@ -25,6 +25,10 @@ class Timer extends Component {
     clearInterval(this.interval);
   }
 
+  componentWillUpdate(nextProps, nextState) {
+    localStorage.setItem('secondsRemaining', JSON.stringify(nextState.secondsRemaining));
+  }
+
   tick() {
     this.setState({
       secondsRemaining: this.state.secondsRemaining - 1,
@@ -41,7 +45,7 @@ class Timer extends Component {
       const minutes = Math.floor(secNum / 60) % 60;
       const seconds = secNum % 60;
       return [hours, minutes, seconds]
-        .map(v => v < 10 ? "0" + v : v)
+        .map(v => v < 10 ? '0' + v : v)
         .filter((v, i) => v !== '00' || i > 0)
         .join(':');
     };
